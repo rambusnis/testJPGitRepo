@@ -7,16 +7,19 @@ pipeline {
     stages {
         /* checkout repo */
         stage('Checkout SCM') {
-            steps {
-                checkout([
-                 $class: 'GitSCM',
-                 branches: [[name: 'main']],
-                 userRemoteConfigs: [[
-                    url: 'git@github.com:rambusnis/testJPGitRepo.git',
-                    credentialsId: '',
-                 ]]
-                ])
+         
+         steps {
+                script{
+                   try{
+                      sh(script: "rm -r s3BucketStag", returnStdout: true)    
+                   }catch (Exception e) {
+                       echo 'Exception occurred: ' + e.toString()
+                   }                   
+                   sh(script: "git clone https://github.com/rambusnis/testJPGitRepo.git", returnStdout: true)
+                   sh(script: "ls -ltr", returnStatus: true)
+                }
             }
+            
         }
          stage('Do the deployment') {
             steps {
