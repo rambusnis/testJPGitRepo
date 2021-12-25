@@ -11,7 +11,7 @@ pipeline {
          steps {
                 script{
                    try{
-                      sh(script: "rm -r s3BucketStag", returnStdout: true)    
+                      sh(script: "rm -r testJPGitRepo", returnStdout: true)    
                    }catch (Exception e) {
                        echo 'Exception occurred: ' + e.toString()
                    }                   
