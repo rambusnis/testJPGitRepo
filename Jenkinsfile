@@ -23,6 +23,9 @@ pipeline {
             steps {
                 echo ">> Run deploy applications"
                 echo ">> Run deploy applications"
+                echo ">> Run deploy applications"
+                echo ">> Run deploy applications"
+                echo ">> Run deploy applications"
             }
         }
     }
