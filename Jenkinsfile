@@ -18,8 +18,6 @@ pipeline {
                    sh(script: "git clone https://github.com/rambusnis/testJPGitRepo.git", returnStdout: true)
                    sh(script: "ls -ltr", returnStatus: true)
                    sh(script: "ls -ltr", returnStatus: true)
-			//Added new Fileasdfasdfasdfsafsafsdaasdfasasdfsdfasfasfsafsfasfasfasfsafsfssafsd:wq!
-			//Added new Fileasdfasdfasdfsafsafsdaasdfasasdfsdfasfasfsafsfasfasfasfsafsfssafsd:wq!
                 }
             }
             
@@ -27,8 +25,6 @@ pipeline {
          stage('Do the deployment') {
             steps {
                 echo ">> Run deploy applications "
-		    echo ">> Run deploy applications "
-		    echo ">> Run deploy applications "
             }
         }
     }
