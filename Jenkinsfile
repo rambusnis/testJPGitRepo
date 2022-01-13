@@ -37,7 +37,7 @@ pipeline {
                     #[ ! -d "$dldir" ] && mkdir -p "$dldir"
 
                     [ "$dldir" == "" ] && { echo "Usage: $0 directory"; exit 1; }
-                    [ -d "${dldir}" ] &&  echo "Directory $d found." || echo "Directory $d not found."
+                    [ -d "${dldir}" ] &&  echo "Directory $dldir found." || echo "Directory $dldir not found."
                     
                     '''
                 }
