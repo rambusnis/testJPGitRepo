@@ -30,10 +30,10 @@ pipeline {
         }
         stage('RoutingProfile-Sync') {
             steps {
-                sh"""
+                 script{
+                     sh"""
                  cat newconnectInstance.txt
                 """
-                 script{
                 //build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
