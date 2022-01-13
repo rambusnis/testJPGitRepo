@@ -38,7 +38,7 @@ pipeline {
                     
 
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
-                    build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                    build job: 'AWS-Connect-Queue-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
