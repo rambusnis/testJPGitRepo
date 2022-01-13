@@ -36,7 +36,7 @@ pipeline {
                     
                     [ ! -d "$dldir" ] && mkdir -p "$dldir"
                     
-                    ''''
+                    '''
                 }
             }
         }
