@@ -33,12 +33,9 @@ pipeline {
                     sh'''
                     #!/bin/bash
                     dldir="$HOME/ramtestlinux/5.x"
-                    
-                    #[ ! -d "$dldir" ] && mkdir -p "$dldir"
-
                     [ "$dldir" == "" ] && { echo "Usage: $0 directory"; exit 1; }
-                    [ -d "${dldir}" ] &&  echo "Directory $dldir found." || mkdir -p "$dldir"
-                    #echo "Directory $dldir not found."
+                    [ -d "${dldir}" ] &&  echo "Directory $dldir found." || mkdir -p "$dldir" echo "Directory $dldir not found."
+                    
                     
                     '''
                 }
