@@ -44,6 +44,11 @@ pipeline {
                 
                  script{
                 //build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                                          sh"""
+                 cat newconnectInstance.txt
+                """
+
+                     
                 }
             }
         }
@@ -53,6 +58,10 @@ pipeline {
                 
                 script{
                 //build job: 'AWS-Connect-Users-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                                         sh"""
+                 cat newconnectInstance.txt
+                """
+
                 }
             }
         }
