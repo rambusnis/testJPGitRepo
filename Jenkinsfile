@@ -1,66 +1,67 @@
+import groovy.json.JsonSlurper;
+import groovy.json.JsonSlurperClassic ;
+import groovy.json.JsonOutput;
 
-String TRAGET_INSTANCE_ID="768a6e27-4ce8-4da3-8452-984f0ba674c4"
+@NonCPS
+def jsonParse(def json) {
+    new groovy.json.JsonSlurperClassic().parseText(json)
+}
+
+def toJSON(def json) {
+    new groovy.json.JsonOutput().toJson(json)
+}
+
+def toSTRINGTOJSON(def json) {
+    new groovy.json.JsonOutput().toJson(json)
+}
+
+def toJSON2(def json) {
+    JsonOutput.prettyPrint(JsonOutput.toJson(json))
+}
+
+def TRAGET_INSTANCE_ID=""
 
 pipeline { 
     agent any 
-    
-   
     stages {
         stage('Initial-Connect-ExpImp-CreateNewInstance') { 
             steps { 
                 script{
-                sh """
-                   echo "${TRAGET_INSTANCE_ID}" > /var/lib/jenkins/newconnectInstance.txt
-                """
-                //build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]                     
+                    build job: 'AWS-Connect-ExpImp-CreateNewInstance'                  
                 }
             }
         }
         stage('Connect-Queue-Sync'){
             steps {
                 script{
-                sh"""
-                 cat /var/lib/jenkins/newconnectInstance.txt
-                """
-                //build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
-
-                
             }
         }
         stage('RoutingProfile-Sync') {
             steps {
                  script{
-                    sh"""
-                    cat /var/lib/jenkins/newconnectInstance.txt
-                    """
-                //build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
         
         stage('QuickConnect-Sync') {
             steps {
-                
                  script{
-                //build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
-                 sh"""
-                    cat /var/lib/jenkins/newconnectInstance.txt
-                    """
-
-                     
+                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
+                    build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
         
         stage('Users-Sync') {
             steps {
-                
                 script{
-                //build job: 'AWS-Connect-Users-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
-                 sh"""
-                    cat /var/lib/jenkins/newconnectInstance.txt
-                    """
+                TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                build job: 'AWS-Connect-Users-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
