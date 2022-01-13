@@ -30,13 +30,13 @@ pipeline {
                     //build job: 'AWS-Connect-ExpImp-CreateNewInstance'                  
                     echo "hello"
 
-                    sh"""
+                    sh'''
                     #!/bin/bash
                     dldir="$HOME/ramtestlinux/5.x"
                     
                     [ ! -d "$dldir" ] && mkdir -p "$dldir"
                     
-                    """
+                    ''''
                 }
             }
         }
