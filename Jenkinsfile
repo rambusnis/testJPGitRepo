@@ -9,14 +9,20 @@ pipeline {
         stage('Initial-Connect-ExpImp-CreateNewInstance') { 
             steps { 
                 script{
-                build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]                     
+                sh """
+                   ${TRAGET_INSTANCE_ID} > newconnectInstance.txt
+                """
+                //build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]                     
                 }
             }
         }
         stage('Connect-Queue-Sync'){
             steps {
                 script{
-                build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                sh"""
+                 cat newconnectInstance.txt
+                """
+                //build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
 
                 
@@ -24,9 +30,11 @@ pipeline {
         }
         stage('RoutingProfile-Sync') {
             steps {
-                
+                sh"""
+                 cat newconnectInstance.txt
+                """
                  script{
-                build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                //build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
@@ -35,7 +43,7 @@ pipeline {
             steps {
                 
                  script{
-                build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                //build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
@@ -43,8 +51,8 @@ pipeline {
         stage('Users-Sync') {
             steps {
                 
-                 script{
-                build job: 'AWS-Connect-Users-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                script{
+                //build job: 'AWS-Connect-Users-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
         }
