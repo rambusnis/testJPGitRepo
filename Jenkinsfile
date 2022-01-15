@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('Connect-Queue-Sync'){
+        /*stage('Connect-Queue-Sync'){
             steps {
                 script{
 
@@ -67,7 +67,7 @@ pipeline {
                     build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
-        }
+        }*/
         
     }
 }
