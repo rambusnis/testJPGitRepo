@@ -31,7 +31,16 @@ pipeline {
                 }
             }
         }
-        /*stage('Connect-Queue-Sync'){
+        stage('Connect-HOUROPS-Sync'){
+            steps {
+                script{
+
+                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    build job: 'AWS-Connect-HRSOPS-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
+                }
+            }
+        }
+        stage('Connect-Queue-Sync'){
             steps {
                 script{
 
@@ -67,7 +76,7 @@ pipeline {
                     build job: 'AWS-Connect-QuickConnect-Sync',parameters: [string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID)]  
                 }
             }
-        }*/
+        }
         
     }
 }
