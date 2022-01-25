@@ -51,7 +51,7 @@ pipeline {
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
-                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion)
                                                                      ]  
                 }
             }
@@ -80,7 +80,7 @@ pipeline {
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
-                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion)
                                                                      ]  
                 }
             }
@@ -108,7 +108,7 @@ pipeline {
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
-                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion)
                                                                      ]  
                 }
             }
@@ -122,7 +122,7 @@ pipeline {
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
-                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion)
                                                                      ]  
             }
         }
