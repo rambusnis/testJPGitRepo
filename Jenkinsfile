@@ -27,7 +27,7 @@ pipeline {
     parameters {
         choice(choices: ['DEV', 'STAGE','PROD'], description: 'AWS ENVIRONMENT?', name: 'PickAnStage')
         choice(choices: ['eu-west-2'], description: 'AWS SORUCE REGION?', name: 'PickAnSRCRegion')
-        choice(choices: ['eu-west-2'], description: 'AWS TARGET REGION?', name: 'PickAnTARRegion')
+        choice(choices: ['us-west-2'], description: 'AWS TARGET REGION?', name: 'PickAnTARRegion')
     }
     
         stages {
