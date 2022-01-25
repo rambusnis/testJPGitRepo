@@ -25,15 +25,20 @@ pipeline {
     agent any 
     
     parameters {
-        choice(choices: ['DEV', 'STAGE','PROD'], description: 'AWS STAGE?', name: 'PickAnStage')
-        choice(choices: ['eu-west-2', 'us-west-2'], description: 'AWS REGION?', name: 'PickAnRegion')
+        choice(choices: ['DEV', 'STAGE','PROD'], description: 'AWS ENVIRONMENT?', name: 'PickAnStage')
+        choice(choices: ['eu-west-2'], description: 'AWS SORUCE REGION?', name: 'PickAnSRCRegion')
+        choice(choices: ['eu-west-2'], description: 'AWS TARGET REGION?', name: 'PickAnTARRegion')
     }
     
     stages {
         stage('Initial-Connect-ExpImp-CreateNewInstance') { 
             steps { 
                 script{
-                    build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters:[string(name:'STAGES',value:params.PickAnStage),string(name:'REGIONS',value:params.PickAnRegion)]                
+                    build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters:[
+                                                                        string(name:'STAGES',value:params.PickAnStage),
+                                                                        string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                        string(name:'TREGIONS',value:params.PickAnTARRegion)
+                                                                        ]                
                 }
             }
         }
@@ -45,7 +50,8 @@ pipeline {
                     build job: 'AWS-Connect-HRSOPS-Sync',parameters: [
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
-                                                                     string(name:'REGIONS',value:params.PickAnRegion)
+                                                                     string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
                                                                      ]  
                 }
             }
@@ -58,10 +64,11 @@ pipeline {
 
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
                     build job: 'AWS-Connect-Queue-Sync',parameters: [
-                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
-                                                                      string(name:'STAGES',value:params.PickAnStage),
-                                                                      string(name:'REGIONS',value:params.PickAnRegion)
-                                                                     ]  
+                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'STAGES',value:params.PickAnStage),
+                                                                     string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     ]   
                 }
             }
         }
@@ -70,10 +77,11 @@ pipeline {
                  script{
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
                     build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [
-                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
-                                                                      string(name:'STAGES',value:params.PickAnStage),
-                                                                      string(name:'REGIONS',value:params.PickAnRegion)
-                                                                     ]   
+                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'STAGES',value:params.PickAnStage),
+                                                                     string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     ]  
                 }
             }
         }
@@ -83,9 +91,10 @@ pipeline {
                 script{
                 TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
                 build job: 'AWS-Connect-Users-Sync',parameters: [
-                                                                  string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
-                                                                  string(name:'STAGES',value:params.PickAnStage),
-                                                                  string(name:'REGIONS',value:params.PickAnRegion)
+                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'STAGES',value:params.PickAnStage),
+                                                                     string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
                                                                 ]   
                 }
             }
@@ -96,10 +105,11 @@ pipeline {
                  script{
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
                     build job: 'AWS-Connect-QuickConnect-Sync',parameters: [
-                                                                          string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
-                                                                          string(name:'STAGES',value:params.PickAnStage),
-                                                                          string(name:'REGIONS',value:params.PickAnRegion)
-                                                                         ]  
+                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'STAGES',value:params.PickAnStage),
+                                                                     string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
+                                                                     ]  
                 }
             }
         }
@@ -109,11 +119,11 @@ pipeline {
                  script{
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
                     build job: 'AWS-Connect-ContactFlow-Sync',parameters: [
-                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
-                                                                      string(name:'STAGES',value:params.PickAnStage),
-                                                                      string(name:'REGIONS',value:params.PickAnRegion)
+                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'STAGES',value:params.PickAnStage),
+                                                                     string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                     string(name:'TREGIONS',value:params.PickAnTARRegion),
                                                                      ]  
-                }
             }
         }
         
