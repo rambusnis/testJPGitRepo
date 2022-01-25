@@ -117,7 +117,7 @@ pipeline {
             }
         }
 
-         stage('ContactFlow-Sync') {
+         /*stage('ContactFlow-Sync') {
             steps {
                  script{
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
@@ -129,7 +129,7 @@ pipeline {
                                                                      ]  
                         }
                 }
-        }
+        }*/
         
     }
 }
