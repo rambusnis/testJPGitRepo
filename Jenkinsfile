@@ -30,25 +30,26 @@ pipeline {
         choice(choices: ['eu-west-2'], description: 'AWS TARGET REGION?', name: 'PickAnTARRegion')
     }
     
-    stages {
-        stage('Initial-Connect-ExpImp-CreateNewInstance') { 
-            steps { 
-                script{
-                    build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters:[
-                                                                        string(name:'STAGES',value:params.PickAnStage),
-                                                                        string(name:'SREGIONS',value:params.PickAnSRCRegion),
-                                                                        string(name:'TREGIONS',value:params.PickAnTARRegion)
-                                                                        ]                
+        stages {
+            stage('Initial-Connect-ExpImp-CreateNewInstance') { 
+                steps { 
+                    script{
+                        build job: 'AWS-Connect-ExpImp-CreateNewInstance',parameters:[
+                                                                            string(name:'STAGES',value:params.PickAnStage),
+                                                                            string(name:'SREGIONS',value:params.PickAnSRCRegion),
+                                                                            string(name:'TREGIONS',value:params.PickAnTARRegion)
+                                                                            ]                
+                    }
                 }
-            }
         }
+        
         stage('Connect-HOUROPS-Sync'){
             steps {
                 script{
 
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
                     build job: 'AWS-Connect-HRSOPS-Sync',parameters: [
-                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'TRAGET_INSTANCE',value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
                                                                      string(name:'TREGIONS',value:params.PickAnTARRegion)
@@ -56,6 +57,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Connect-Queue-Sync'){
             steps {
                 script{
@@ -64,7 +66,7 @@ pipeline {
 
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
                     build job: 'AWS-Connect-Queue-Sync',parameters: [
-                                                                     string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
+                                                                     string(name:'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
                                                                      string(name:'TREGIONS',value:params.PickAnTARRegion),
@@ -72,6 +74,7 @@ pipeline {
                 }
             }
         }
+        
         stage('RoutingProfile-Sync') {
             steps {
                  script{
@@ -100,7 +103,7 @@ pipeline {
             }
         }
         
-         stage('QuickConnect-Sync') {
+        stage('QuickConnect-Sync') {
             steps {
                  script{
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
@@ -124,7 +127,8 @@ pipeline {
                                                                      string(name:'SREGIONS',value:params.PickAnSRCRegion),
                                                                      string(name:'TREGIONS',value:params.PickAnTARRegion)
                                                                      ]  
-            }
+                        }
+                }
         }
         
     }
