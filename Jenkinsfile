@@ -48,6 +48,7 @@ pipeline {
                 script{
 
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    echo "TRAGET_INSTANCE_ID" + TRAGET_INSTANCE_ID
                     build job: 'AWS-Connect-HRSOPS-Sync',parameters: [
                                                                      string(name:'TRAGET_INSTANCE',value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
@@ -61,10 +62,8 @@ pipeline {
         stage('Connect-Queue-Sync'){
             steps {
                 script{
-
-                    
-
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    echo "TRAGET_INSTANCE_ID" + TRAGET_INSTANCE_ID
                     build job: 'AWS-Connect-Queue-Sync',parameters: [
                                                                      string(name:'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
@@ -79,6 +78,7 @@ pipeline {
             steps {
                  script{
                     TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    echo "TRAGET_INSTANCE_ID" + TRAGET_INSTANCE_ID
                     build job: 'AWS-Connect-RoutingProfile-Sync',parameters: [
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
@@ -93,6 +93,7 @@ pipeline {
             steps {
                 script{
                 TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                echo "TRAGET_INSTANCE_ID" + TRAGET_INSTANCE_ID
                 build job: 'AWS-Connect-Users-Sync',parameters: [
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
@@ -106,7 +107,8 @@ pipeline {
         stage('QuickConnect-Sync') {
             steps {
                  script{
-                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
+                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    echo "TRAGET_INSTANCE_ID" + TRAGET_INSTANCE_ID
                     build job: 'AWS-Connect-QuickConnect-Sync',parameters: [
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
@@ -120,7 +122,8 @@ pipeline {
         stage('ContactFlow-Sync') {
             steps {
                  script{
-                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()                     
+                    TRAGET_INSTANCE_ID= sh(script: 'cat /var/lib/jenkins/newconnectInstance.txt', returnStdout: true).trim()
+                    echo "TRAGET_INSTANCE_ID" + TRAGET_INSTANCE_ID
                     build job: 'AWS-Connect-ContactFlow-Sync',parameters: [
                                                                      string(name: 'TRAGET_INSTANCE', value:TRAGET_INSTANCE_ID),
                                                                      string(name:'STAGES',value:params.PickAnStage),
